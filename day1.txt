@@ -1,0 +1,12 @@
+int score = 80; // given a value for score
+
+String result;  // sign a reference 
+if (score == 80) {               // given a condition 
+	result = "You passed!";   // if match the condition then run
+} else if (score > 80) {
+	result = "You did great!";
+} else {
+	result = "You did not pass. Try again!";
+}
+
+System.out.println(result);  // print out the value for result
