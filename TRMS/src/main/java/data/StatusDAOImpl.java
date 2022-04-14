@@ -1,11 +1,16 @@
 package data;
 
 import TRMS.Status;
+import org.checkerframework.checker.units.qual.C;
+import utils.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class StatusDAOImpl implements StatusDAO{
 
@@ -45,15 +50,145 @@ public class StatusDAOImpl implements StatusDAO{
 
     }
 
-
-
     @Override
-    public Status getById(Status status_id) {
-        return null;
+    public Status getById(int id) {
+        Status status = null;
+        PreparedStatement preparedStatement = null;
+        try(Connection connection = ConnectionFactory.getConnection()){
+            // TODO
+            String sql = "";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.next()){
+                status = new Status();
+                status.setStatus_id(id);
+                status.setStatus_name(resultSet.getString("name"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            try{
+                preparedStatement.close();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return status;
     }
 
     @Override
-    public Status getByName(Status status_name) {
-        return null;
+    public Set<Status> getAll() {
+        Set<Status> statusSet = new HashSet<>();
+        PreparedStatement preparedStatement= null;
+        try(Connection connection = ConnectionFactory.getConnection()){
+            // TODO
+            String sql = "";
+            preparedStatement = connection.prepareStatement(sql);
+            ResultSet resultSet  = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                Status status = new Status();
+                status.setStatus_id(resultSet.getInt("id"));
+                status.setStatus_name(resultSet.getString("name"));
+                statusSet.add(status);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            try{
+                preparedStatement.close();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return statusSet;
+    }
+
+    @Override
+    public void update(Status updateObj) throws SQLException {
+        PreparedStatement preparedStatement = null;
+
+        try(Connection connection = ConnectionFactory.getConnection()){
+            connection.setAutoCommit(false);
+            //TODO
+            String sql = "";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,updateObj.getStatus_name());
+            int row = preparedStatement.executeUpdate();
+
+            if(row == 1){
+                connection.commit();
+            }else{
+                connection.rollback();
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            try{
+                connection.close();;
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    @Override
+    public void delete(Status deleteObj) throws SQLException {
+        PreparedStatement preparedStatement = null;
+        try(Connection connection = ConnectionFactory.getConnection()){
+            connection.setAutoCommit(false);
+            //TODO
+            String sql = "";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,deleteObj.getStatus_id());
+            int row = preparedStatement.executeUpdate();
+
+            if(row == 1){
+                connection.commit();
+            }else{
+                connection.rollback();
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            try{
+                connection.close();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public Status getByName(String status_name) {
+        Status status = null;
+        PreparedStatement preparedStatement = null;
+
+        try(Connection connection = ConnectionFactory.getConnection()){
+        //TODO
+            String sql = "";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,status_name);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if(resultSet.next()){
+                status = new Status();
+                status.setStatus_id(resultSet.getInt("id"));
+                status.setStatus_name(resultSet.getString("status_name"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            try{
+                preparedStatement.close();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return status;
     }
 }

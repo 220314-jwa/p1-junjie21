@@ -5,6 +5,7 @@ public class DaoFactory {
     private static DepartmentDAO departmentDAO = null;
     private static EventDAO eventDAO = null;
     private static RequestDAO requestDAO = null;
+    private static StatusDAO statusDAO = null;
 
     // Constructor
     private DaoFactory(){
@@ -16,6 +17,10 @@ public class DaoFactory {
             employeeDAO = new EmployeeDAOImpl();
         }
         return employeeDAO;
+    }
+
+    public static StatusDAO getStatusDAO() {
+        return statusDAO;
     }
 
     public static DepartmentDAO getDepartmentDAO(){

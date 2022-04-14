@@ -1,4 +1,4 @@
-package data;
+package utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,11 +11,7 @@ public class ConnectionFactory {
 
     public static Connection getConnection(){
         // if there is no connection yet:
-        if(connection == null){
-            //ResourceBundle bundle = ResourceBundle.getBundle("dbConfig");
-            //String url = bundle.getString("url");
-            //String username = bundle.getString("username");
-            //String password = bundle.getString("password");
+
             String url = "jdbc:postgresql://localhost:5432/postgres";
             String username = "postgres";
             String password = "jy89611768++";
@@ -26,7 +22,7 @@ public class ConnectionFactory {
             }catch(SQLException e){
                 e.printStackTrace();
             }
-        }
+
         return connection;
     }
 }

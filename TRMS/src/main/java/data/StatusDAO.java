@@ -2,7 +2,6 @@ package data;
 
 import TRMS.Status;
 
-public interface StatusDAO {
-    public Status getById(Status status_id);
-    public Status getByName(Status status_name);
+public interface StatusDAO extends GenericDAO<Status>{
+    public Status getByName(String status_name);
 }

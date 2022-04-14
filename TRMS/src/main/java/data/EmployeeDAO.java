@@ -2,14 +2,13 @@ package data;
 
 import TRMS.Employee;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
-public interface EmployeeDAO  {
-    public List<Employee> getByFirstName(String firstName);
-    public List<Employee> getByLastName(String lastName);
-    public List<Employee> getById(int employeeId);
-    public List<Employee> getByDept(int deptId);
-    public List<Employee> getByManager(int managerId);
-    public List<Employee> getAll();
-    // public int create(Employee employee);
+public interface EmployeeDAO extends GenericDAO<Employee>{
+
+    public Set<Employee> findAll() throws Exception;
+    public Employee getByUsername(String username);
+    public Set<Employee> getByStatus(String status);
 }

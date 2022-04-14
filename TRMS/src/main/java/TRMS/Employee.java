@@ -8,6 +8,24 @@ public class Employee {
     private int manager_id;
     private int dept_id;
     private int employee_id;
+    private String username;
+    private String password;
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
 
     // constructor default all the values
     public Employee(){
@@ -16,6 +34,8 @@ public class Employee {
         manager_id = 0;
         employee_id = 0;
         dept_id = 0;
+        username = "";
+        password = "";
     }
 
     public void setEmployee_id(int employee_id) {
@@ -58,7 +78,6 @@ public class Employee {
         return firstName;
     }
 
-    // print method
     @Override
     public String toString() {
         return "Employee{" +
@@ -67,22 +86,22 @@ public class Employee {
                 ", manager_id=" + manager_id +
                 ", dept_id=" + dept_id +
                 ", employee_id=" + employee_id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (!(o instanceof Employee)) return false;
         Employee employee = (Employee) o;
-        return manager_id == employee.manager_id && dept_id == employee.dept_id && employee_id == employee.employee_id && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName);
+        return manager_id == employee.manager_id && dept_id == employee.dept_id && employee_id == employee.employee_id && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(username, employee.username) && Objects.equals(password, employee.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), firstName, lastName, manager_id, dept_id, employee_id);
+        return Objects.hash(firstName, lastName, manager_id, dept_id, employee_id, username, password);
     }
-
-
 }

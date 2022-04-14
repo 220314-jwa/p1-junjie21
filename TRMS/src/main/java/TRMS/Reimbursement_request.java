@@ -13,6 +13,7 @@ public class Reimbursement_request {
     private String location;
     private Date event_date;
     private Date submitted_at;
+    private int employee_id;
 
 
     // default constructor
@@ -26,6 +27,13 @@ public class Reimbursement_request {
         submitted_at = new Date();
     }
 
+    public void setEmployee_id(int employee_id) {
+        this.employee_id = employee_id;
+    }
+
+    public int getEmployee_id() {
+        return employee_id;
+    }
 
     public void setSubmitted_at(Date submitted_at) {
         this.submitted_at = submitted_at;
@@ -84,7 +92,7 @@ public class Reimbursement_request {
         return request_id;
     }
 
-    // print method
+
     @Override
     public String toString() {
         return "Reimbursement_request{" +
@@ -95,20 +103,20 @@ public class Reimbursement_request {
                 ", location='" + location + '\'' +
                 ", event_date=" + event_date +
                 ", submitted_at=" + submitted_at +
+                ", employee_id=" + employee_id +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Reimbursement_request)) return false;
         Reimbursement_request that = (Reimbursement_request) o;
-        return request_id == that.request_id && event_type_id == that.event_type_id && cost == that.cost && Objects.equals(description, that.description) && Objects.equals(location, that.location) && Objects.equals(event_date, that.event_date) && Objects.equals(submitted_at, that.submitted_at);
+        return request_id == that.request_id && event_type_id == that.event_type_id && cost == that.cost && employee_id == that.employee_id && Objects.equals(description, that.description) && Objects.equals(location, that.location) && Objects.equals(event_date, that.event_date) && Objects.equals(submitted_at, that.submitted_at);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(request_id, event_type_id, cost, description, location, event_date, submitted_at);
+        return Objects.hash(request_id, event_type_id, cost, description, location, event_date, submitted_at, employee_id);
     }
-
 }

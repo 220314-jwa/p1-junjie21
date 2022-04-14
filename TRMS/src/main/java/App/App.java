@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 
 public class App {
-    //private static UserService userService =  new UserServiceImpl();
+
     public static void main(String args[]) {
         // To start the application here
         Javalin app = Javalin.create().start(6666);

@@ -1,45 +1,61 @@
 package Service;
 
 import TRMS.Employee;
+import TRMS.Reimbursement_request;
 import data.*;
+import exceptions.AlreadyAdoptedException;
 import exceptions.IncorrectCredentialsException;
+import exceptions.UsernameAlreadyExistsException;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
     private EmployeeDAO employeeDAO = DaoFactory.getEmployeeDAO();
-    private DepartmentDAO departmentDAO = DaoFactory.getDepartmentDAO();
+    //private DepartmentDAO departmentDAO = DaoFactory.getDepartmentDAO();
     private RequestDAO requestDAO = DaoFactory.getRequestDAO();
     private EventDAO eventDAO = DaoFactory.getEventDAO();
-    //private StatusDAO statusDAO =
 
     @Override
-    public Employee logIn(String username, String password) throws IncorrectCredentialsException{
-        //Employee employee = (Employee) employeeDAO.getByFirstName(username);
+    public Employee logIn(String username, String password) throws IncorrectCredentialsException, SQLException {
+        Employee employee = employeeDAO.getByUsername(username);
+        if(employee != null && employee.getPassword().equals(password)){
+            return employee;
+        }else{
+            throw new IncorrectCredentialsException();
+        }
+    }
 
-         return null;
+    @Override
+    public Employee register(Employee newUser) throws UsernameAlreadyExistsException, SQLException {
+        int id = employeeDAO.create(newUser);
+        if(id != 0){
+            newUser.setEmployee_id(id);
+            return newUser;
+        }else{
+            throw new UsernameAlreadyExistsException();
+        }
     }
 
     @Override
     public List<Employee> viewAvailableEmployee() {
-        //return EmployeeDAO.getAll();
+        // return employeeDAO.getAll("All");
+        return null;
+    }
+
+    @Override
+    public Employee pickEmployee(Employee employee, Reimbursement_request request) throws AlreadyAdoptedException, Exception {
+        //request = employeeDAO.getById(request.getRequest_id());
         return null;
     }
 
     @Override
     public Employee getById(int id) {
-        //return EmployeeDAO.getById(id);
-        return null;
+        return employeeDAO.getById(id);
     }
 
     @Override
-    public Employee getByLastName(String lastName) {
-        //return EmployeeDAO.get
-        return null;
-    }
-
-    @Override
-    public List<Employee> searchEmployeeById(int id) {
-        return null;
+    public Reimbursement_request getReById(int id) {
+        return requestDAO.getById(id);
     }
 }

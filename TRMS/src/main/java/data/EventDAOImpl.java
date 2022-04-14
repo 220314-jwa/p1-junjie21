@@ -1,6 +1,7 @@
 package data;
 
 import TRMS.Event_type;
+import utils.ConnectionFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
