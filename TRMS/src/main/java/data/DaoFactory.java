@@ -20,6 +20,9 @@ public class DaoFactory {
     }
 
     public static StatusDAO getStatusDAO() {
+        if(statusDAO == null){
+            statusDAO = new StatusDAOImpl();
+        }
         return statusDAO;
     }
 

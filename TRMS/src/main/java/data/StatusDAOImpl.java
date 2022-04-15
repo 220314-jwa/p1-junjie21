@@ -85,13 +85,13 @@ public class StatusDAOImpl implements StatusDAO{
         PreparedStatement preparedStatement= null;
         try(Connection connection = ConnectionFactory.getConnection()){
             // TODO
-            String sql = "";
+            String sql = "select * from status";
             preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet  = preparedStatement.executeQuery();
             while(resultSet.next()){
                 Status status = new Status();
-                status.setStatus_id(resultSet.getInt("id"));
-                status.setStatus_name(resultSet.getString("name"));
+                status.setStatus_id(resultSet.getInt("status_id"));
+                status.setStatus_name(resultSet.getString("status_name"));
                 statusSet.add(status);
             }
         }catch (SQLException e){
@@ -169,7 +169,7 @@ public class StatusDAOImpl implements StatusDAO{
 
         try(Connection connection = ConnectionFactory.getConnection()){
         //TODO
-            String sql = "";
+            String sql = "select * from status where status_id = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,status_name);
 
@@ -177,7 +177,7 @@ public class StatusDAOImpl implements StatusDAO{
 
             if(resultSet.next()){
                 status = new Status();
-                status.setStatus_id(resultSet.getInt("id"));
+                status.setStatus_id(resultSet.getInt("status_id"));
                 status.setStatus_name(resultSet.getString("status_name"));
             }
         }catch (SQLException e){

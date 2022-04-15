@@ -59,7 +59,7 @@ public class EmployeeDAOTest {
     }
 
     @Test
-    public void getAll(){
+    public void getAll() throws SQLException {
         Set<Employee> output = employeeDAO.getAll();
         assertNotNull(output);
     }

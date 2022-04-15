@@ -8,7 +8,7 @@ public interface GenericDAO <D> {
     // create read update delete
     public int create(D newObj) throws SQLException;
     public D getById(int id);
-    public Set<D> getAll(); // read all
+    public Set<D> getAll() throws SQLException; // read all
     public void update(D updateObj) throws SQLException;        // update
     public void delete(D deleteObj) throws SQLException;        // delete
 }

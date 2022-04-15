@@ -29,8 +29,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             preparedStatement.setString(1, employee.getFirstName());
             preparedStatement.setString(2, employee.getLastName());
             //preparedStatement.setInt(1,emp.getEmployee_id());
-            preparedStatement.setInt(4,employee.getManager_id());
             preparedStatement.setInt(3,employee.getDept_id());
+            preparedStatement.setInt(4,employee.getManager_id());
             preparedStatement.setString(5, employee.getUsername());
             preparedStatement.setString(6,employee.getPassword());
 
@@ -126,7 +126,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public Set<Employee> findAll() throws Exception {
-        String sql =  "SELECT SELECT employee_id,firstName,lastname,dept_id,manager_id FROM employee WHERE employee_id = ?";
+        String sql =  "SELECT employee_id,firstName,lastname,dept_id,manager_id FROM employee WHERE employee_id = ?";
         preparedStatement = connection.prepareStatement(sql);
         ResultSet rs = preparedStatement.executeQuery();
         Employee employee = null;
@@ -158,30 +158,34 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         try(Connection connection = ConnectionFactory.getConnection()){
             String sql = "Select * from employee where username = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(3, username);
+            preparedStatement.setString(1, username);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if(resultSet.next()){
+                /*
+                employee = new Employee();
+                employee.setEmployee_id(resultSet.getInt("employee_id"));
+                String fullName =resultSet.getString("full_name");
+                employee.setFirstName(fullName.substring(0,fullName.indexOf(' ')));
+                employee.setLastName(fullName.substring(1,fullName.indexOf(" ")+1));
+                employee.setUsername(username);
+                employee.setPassword(resultSet.getString("password"));
 
+                 */
+                //EmployeeDAO employeeDAO = DaoFactory.getEmployeeDAO();
+                employee = EmployeeDAOImpl.parseResultSet(resultSet);
             }else{
                 System.out.println("something went wrong getting username");
             }
         }catch (SQLException e){
             e.printStackTrace();
-        }finally {
-            {
-                try{
-                    preparedStatement.close();
-                }catch(SQLException e){
-                    e.printStackTrace();
-                }
-            }
         }
+
         return employee;
     }
 
-    private Employee parseResultSet(ResultSet resultSet) throws SQLException {
+    private static Employee parseResultSet(ResultSet resultSet) throws SQLException {
         Employee employee = new Employee();
         employee.setEmployee_id(resultSet.getInt("employee_id"));
         employee.setFirstName(resultSet.getString("firstName"));

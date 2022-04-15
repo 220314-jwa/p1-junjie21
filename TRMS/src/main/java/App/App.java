@@ -9,17 +9,37 @@ import data.*;
 import io.javalin.Javalin;
 import Service.UserServiceImpl;
 import Service.UserService;
+import io.javalin.http.HttpCode;
 
 import java.sql.SQLException;
+import java.util.Map;
 
 
 public class App {
-
+    private static UserService userService = new UserServiceImpl();
     public static void main(String args[]) {
         // To start the application here
         Javalin app = Javalin.create().start(6666);
 
         // post for creating put update get retrieve
+
+
+        app.post("/login", ctx ->{
+           Map<String, String> credentials = ctx.bodyAsClass(Map.class);
+           String username = credentials.get("username");
+            System.out.println(username);
+           String password = credentials.get("password");
+            System.out.println(password);
+            Employee employee = userService.logIn(username,password);
+
+            if (employee != null) {
+                ctx.json(employee);
+            } else {
+                ctx.status(HttpCode.UNAUTHORIZED);
+            }
+
+        });
+
 
         // get employee ID:
         app.get("/emp/{id}", ctx -> {
@@ -138,4 +158,5 @@ public class App {
         });
 
     }
+
 }

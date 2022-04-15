@@ -12,7 +12,7 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
     private EmployeeDAO employeeDAO = DaoFactory.getEmployeeDAO();
-    //private DepartmentDAO departmentDAO = DaoFactory.getDepartmentDAO();
+    private DepartmentDAO departmentDAO = DaoFactory.getDepartmentDAO();
     private RequestDAO requestDAO = DaoFactory.getRequestDAO();
     private EventDAO eventDAO = DaoFactory.getEventDAO();
 
@@ -58,4 +58,7 @@ public class UserServiceImpl implements UserService {
     public Reimbursement_request getReById(int id) {
         return requestDAO.getById(id);
     }
+
+
+
 }

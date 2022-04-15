@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Set;
 
 public class EventDAOImpl implements EventDAO{
 
@@ -45,13 +46,30 @@ public class EventDAOImpl implements EventDAO{
             return -1;
         }
     }
+
     @Override
-    public Event_type getById(Event_type event_type_id) {
+    public Event_type getById(int id) {
         return null;
     }
 
     @Override
-    public Event_type getByName(Event_type event_name) {
+    public Set<Event_type> getAll() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public void update(Event_type updateObj) throws SQLException {
+
+    }
+
+    @Override
+    public void delete(Event_type deleteObj) throws SQLException {
+
+    }
+
+
+    @Override
+    public Event_type getByName(String event_name) {
         return null;
     }
 }

@@ -5,12 +5,8 @@ import TRMS.Employee;
 
 import java.util.List;
 
-public interface DepartmentDAO {
-    public Department getByDeptId(Department dept_id);
+public interface DepartmentDAO extends GenericDAO<Department>{
 
-    public Department getByHeadId(Department head_id);
+    public Department getByDeprName(String dept_name);
 
-    public Department getByDeprName(Department dept_name);
-
-    public Department getAll();
 }
